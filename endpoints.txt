@@ -1,0 +1,50 @@
+Segue a documentacao completa das rotas da API para voce iniciar o front-end.
+
+Base URL
+http://localhost:8080
+
+Empresas (admin)
+
+POST /admin/empresas
+Body:
+GET /admin/empresas
+
+GET /admin/empresas/{id}
+
+PUT /admin/empresas/{id}/status?ativo=true
+Sem body.
+
+Categorias
+
+POST /categorias
+Body:
+GET /categorias
+GET /categorias/{id}
+Usuarios
+
+POST /usuarios
+Body:
+GET /usuarios/empresa/{idEmpresa}
+
+GET /usuarios/{id}
+
+PUT /usuarios/{id}
+Body:
+
+Produtos
+
+POST /produtos
+Body:
+GET /produtos/empresa/{idEmpresa}
+
+GET /produtos/{id}
+
+PUT /produtos/{id}
+Body:
+
+DELETE /produtos/{id}
+Vendas
+
+POST /vendas/empresa/{idEmpresa}
+Body (lista de itens):
+GET /vendas/empresa/{idEmpresa}

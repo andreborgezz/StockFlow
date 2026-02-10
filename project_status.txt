@@ -1,0 +1,127 @@
+STOCKFLOW - RESUMO COMPLETO DO PROJETO (PARA RETOMAR FUTURO)
+
+1) O QUE E
+Sistema ERP para supermercados chamado StockFlow. Foco em gestao comercial:
+empresas, usuarios, categorias, produtos, vendas. Backend em Spring Boot +
+MySQL e frontend em HTML/CSS/JS puro.
+
+2) COMO ESTA ORGANIZADO
+- Backend Java: src/main/java/com/example/gestor
+- Frontend HTML/CSS/JS: frontend/
+- Documentacao: README.md e openapi.yaml
+- Status geral: este arquivo (project_status.txt)
+
+3) BACKEND (API)
+Rotas principais:
+- Empresas (admin): /admin/empresas (POST/GET) e /admin/empresas/{id}
+	e /admin/empresas/{id}/status?ativo=true (PUT)
+- Usuarios: /usuarios (POST), /usuarios/{id} (GET/PUT),
+	/usuarios/empresa/{idEmpresa} (GET)
+- Categorias: /categorias (POST/GET), /categorias/{id} (GET/PUT/DELETE)
+- Produtos: /produtos (POST), /produtos/{id} (GET/PUT/DELETE),
+	/produtos/empresa/{idEmpresa} (GET)
+- Vendas: /vendas/empresa/{idEmpresa} (POST/GET)
+
+Regras importantes:
+- Usuario exige empresa existente (validado no service).
+- Vendas verificam estoque e empresa do produto.
+
+Swagger/OpenAPI:
+- Swagger UI: http://localhost:8080/swagger-ui
+- OpenAPI JSON: http://localhost:8080/v3/api-docs
+- Spec local: openapi.yaml
+
+4) FRONTEND (HTML/CSS/JS PURO)
+Visual: ERP limpo, fundo branco, linhas e bordas em azul escuro.
+Fonte: IBM Plex Sans. Logo aplicada.
+
+Paginas:
+- frontend/admin.html
+	* Empresas: criar, listar, alterar status (ativo/inativo).
+	* Usuarios: criar, listar por empresa, atualizar.
+	* JS: frontend/app.js
+
+- frontend/estoque.html
+	* Categorias: criar, listar, editar, excluir.
+	* Produtos: criar, listar por empresa, editar, excluir.
+	* JS: frontend/estoque.js
+
+Menu:
+- Header com links Admin / Estoque.
+
+5) COMO RODAR
+- Subir o backend (Spring Boot) em http://localhost:8080
+- Abrir admin.html e estoque.html no navegador.
+- Se der erro de CORS ao abrir direto o HTML, rodar um servidor simples
+	dentro da pasta frontend (ex: python -m http.server) e abrir via localhost.
+
+6) O QUE FOI FEITO (RESUMO)
+- CRUD completo de empresas, usuarios, produtos.
+- Categorias agora tem PUT/DELETE (foi adicionado).
+- Vendas com POST e GET por empresa.
+- Swagger UI e OpenAPI configurados.
+- Front com duas paginas conectadas na API.
+- Logo aplicada (assets/stockflow-logo.png).
+
+7) PROXIMOS PASSOS (PRIORIDADE)
+1) Criar pagina de Vendas no front (listar e registrar venda).
+2) Dashboard/relatorios (total vendido, estoque baixo, produtos mais vendidos).
+3) Autenticacao/Autorizacao (login e controle por email/role).
+4) Melhorias de UX (confirmacao de delete, loading, busca/filtro).
+5) Validacoes e mensagens de erro mais amigaveis.
+
+8) CHECKLIST DO QUE AINDA FALTA
+- Tela de vendas no front (HTML/JS).
+- Integrar fluxo de venda com API.
+- Dashboard/relatorios.
+- Auth (se for necessario controlar acesso por email).
+- Melhorias de UX.
+
+9) EXEMPLOS DE JSON (PARA TESTE RAPIDO)
+Empresa (POST /admin/empresas):
+{
+	"nome": "Empresa X",
+	"documento": "12345678910",
+	"ativo": true
+}
+
+Usuario (POST /usuarios):
+{
+	"nome": "Admin",
+	"email": "admin@email.com",
+	"senha": "123456",
+	"role": "ADMIN",
+	"empresa": { "id": 3 }
+}
+
+Categoria (POST /categorias):
+{
+	"nomeCategoria": "Bebidas"
+}
+
+Produto (POST /produtos):
+{
+	"nomeProduto": "Coca 2L",
+	"preco": 9.99,
+	"qtdEstoque": 50,
+	"empresa": { "id": 3 },
+	"categoria": { "idCategoria": 2 }
+}
+
+Venda (POST /vendas/empresa/3):
+[
+	{
+		"produto": { "idProduto": 1, "empresa": { "id": 3 } },
+		"quantidade": 2
+	}
+]
+
+10) IDS USADOS NOS TESTES (EXEMPLO)
+- empresaId usado: 3
+- categoriaId criado: 2
+- produtoId criado: 2 (foi deletado no teste)
+- usuarioId criado: 6
+
+11) OBSERVACOES IMPORTANTES
+- Front usa API base fixa: http://localhost:8080
+- Se o HTML abrir sem servidor local e der CORS, use um server simples.

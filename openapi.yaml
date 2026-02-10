@@ -1,0 +1,425 @@
+openapi: 3.0.3
+info:
+  title: Gestor API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /admin/empresas:
+    post:
+      summary: Criar empresa
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Empresa"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empresa"
+    get:
+      summary: Listar empresas
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Empresa"
+  /admin/empresas/{id}:
+    get:
+      summary: Buscar empresa por id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empresa"
+  /admin/empresas/{id}/status:
+    put:
+      summary: Alterar status da empresa
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: ativo
+          in: query
+          required: true
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empresa"
+  /categorias:
+    post:
+      summary: Criar categoria
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Categoria"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+    get:
+      summary: Listar categorias
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Categoria"
+  /categorias/{id}:
+    get:
+      summary: Buscar categoria por id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categoria"
+  /usuarios:
+    post:
+      summary: Criar usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Usuario"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+  /usuarios/empresa/{idEmpresa}:
+    get:
+      summary: Listar usuarios por empresa
+      parameters:
+        - name: idEmpresa
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Usuario"
+  /usuarios/{id}:
+    get:
+      summary: Buscar usuario por id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+    put:
+      summary: Atualizar usuario
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Usuario"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Usuario"
+  /produtos:
+    post:
+      summary: Criar produto
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Produto"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produto"
+  /produtos/empresa/{idEmpresa}:
+    get:
+      summary: Listar produtos por empresa
+      parameters:
+        - name: idEmpresa
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Produto"
+  /produtos/{id}:
+    get:
+      summary: Buscar produto por id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produto"
+    put:
+      summary: Atualizar produto
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Produto"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produto"
+    delete:
+      summary: Deletar produto
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "204":
+          description: No Content
+  /vendas/empresa/{idEmpresa}:
+    post:
+      summary: Realizar venda
+      parameters:
+        - name: idEmpresa
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/ItemVenda"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Venda"
+    get:
+      summary: Listar vendas por empresa
+      parameters:
+        - name: idEmpresa
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Venda"
+components:
+  schemas:
+    Empresa:
+      type: object
+      properties:
+        idEmpresa:
+          type: integer
+          format: int64
+        nome:
+          type: string
+        documento:
+          type: string
+        ativo:
+          type: boolean
+    Categoria:
+      type: object
+      properties:
+        idCategoria:
+          type: integer
+          format: int64
+        nomeCategoria:
+          type: string
+    Usuario:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+        email:
+          type: string
+        senha:
+          type: string
+        role:
+          type: string
+        empresa:
+          $ref: "#/components/schemas/EmpresaRef"
+    Produto:
+      type: object
+      properties:
+        idProduto:
+          type: integer
+          format: int64
+        nomeProduto:
+          type: string
+        preco:
+          type: number
+          format: double
+        qtdEstoque:
+          type: integer
+        empresa:
+          $ref: "#/components/schemas/EmpresaRef"
+        categoria:
+          $ref: "#/components/schemas/CategoriaRef"
+    Venda:
+      type: object
+      properties:
+        id_Venda:
+          type: integer
+          format: int64
+        data:
+          type: string
+          format: date-time
+        valorTotal:
+          type: number
+          format: double
+        empresa:
+          $ref: "#/components/schemas/EmpresaRef"
+    ItemVenda:
+      type: object
+      properties:
+        idItemVenda:
+          type: integer
+          format: int64
+        produto:
+          $ref: "#/components/schemas/ProdutoRef"
+        quantidade:
+          type: integer
+        precoUnitario:
+          type: number
+          format: double
+    EmpresaRef:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        idEmpresa:
+          type: integer
+          format: int64
+    CategoriaRef:
+      type: object
+      properties:
+        idCategoria:
+          type: integer
+          format: int64
+    ProdutoRef:
+      type: object
+      properties:
+        idProduto:
+          type: integer
+          format: int64
+        empresa:
+          $ref: "#/components/schemas/EmpresaRef"
