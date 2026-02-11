@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StockFlow - Vendas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-grid"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <img class="brand-logo" src="assets/stockflow-logo.png" alt="StockFlow" />
+        <div class="brand-text">
+          <div class="brand-name">StockFlow</div>
+          <div class="brand-sub">ERP para supermercados</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <nav class="nav-links">
+          <a href="admin.html" data-admin-link>Admin</a>
+          <a href="estoque.html">Estoque</a>
+          <a class="active" href="vendas.html">Vendas</a>
+          <a href="dashboard.html">Dashboard</a>
+        </nav>
+        <div class="status">
+          <span class="dot"></span>
+          <span id="apiStatus">API</span>
+        </div>
+        <div class="user-meta">
+          <span class="user-badge" id="userBadge">Usuario</span>
+          <button class="btn outline" id="logoutBtn" type="button">Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="panel" style="animation-delay: 0ms;">
+        <div class="panel-header">
+          <h2>Registrar venda</h2>
+          <button class="btn outline" id="clearItens" type="button">Limpar itens</button>
+        </div>
+
+        <form id="vendaForm">
+          <div class="form-grid">
+            <div class="field">
+              <label for="vendaEmpresaId">Empresa ID</label>
+              <input id="vendaEmpresaId" type="number" min="1" placeholder="Ex: 3" required />
+            </div>
+            <div class="field">
+              <label for="vendaProduto">Produto</label>
+              <select id="vendaProduto">
+                <option value="">Selecione um produto</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="vendaQuantidade">Quantidade</label>
+              <input id="vendaQuantidade" type="number" min="1" step="1" value="1" />
+            </div>
+            <div class="form-actions">
+              <button class="btn outline" id="carregarProdutos" type="button">Carregar produtos</button>
+              <button class="btn" id="addItem" type="button">Adicionar item</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Produto</th>
+                  <th>Preco</th>
+                  <th>Qtd</th>
+                  <th>Subtotal</th>
+                  <th>Acoes</th>
+                </tr>
+              </thead>
+              <tbody id="itensTable"></tbody>
+            </table>
+          </div>
+
+          <div class="summary-row">
+            <div>
+              <div class="summary-label">Total</div>
+              <div class="summary-total" id="vendaTotal">R$ 0,00</div>
+            </div>
+            <div class="summary-actions">
+              <button class="btn primary" type="submit">Registrar venda</button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel" style="animation-delay: 120ms;">
+        <div class="panel-header">
+          <h2>Vendas</h2>
+          <div class="inline">
+            <input id="vendaEmpresaFilter" type="number" min="1" placeholder="Empresa ID" />
+            <button class="btn outline" id="refreshVendas" type="button">Atualizar</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Data</th>
+                <th>Total</th>
+                <th>Empresa</th>
+              </tr>
+            </thead>
+            <tbody id="vendasTable"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="auth.js"></script>
+    <script src="vendas.js"></script>
+  </body>
+</html>

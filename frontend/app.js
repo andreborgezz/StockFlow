@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8080";
+const auth = requireAuth(["ADMIN"]);
 
 const empresaTable = document.getElementById("empresaTable");
 const usuarioTable = document.getElementById("usuarioTable");
@@ -11,25 +11,8 @@ function showToast(message, isError = false) {
   setTimeout(() => toast.classList.remove("show"), 2200);
 }
 
-async function apiRequest(path, options = {}) {
-  const response = await fetch(`${API_BASE}${path}`, {
-    headers: {
-      "Content-Type": "application/json",
-      ...(options.headers || {})
-    },
-    ...options
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText || `HTTP ${response.status}`);
-  }
-
-  if (response.status === 204) {
-    return null;
-  }
-
-  return response.json();
+if (!auth) {
+  throw new Error("Auth requerido");
 }
 
 async function loadEmpresas() {

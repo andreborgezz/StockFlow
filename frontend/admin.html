@@ -25,12 +25,18 @@
       </div>
       <div class="topbar-right">
         <nav class="nav-links">
-          <a class="active" href="admin.html">Admin</a>
+          <a class="active" href="admin.html" data-admin-link>Admin</a>
           <a href="estoque.html">Estoque</a>
+          <a href="vendas.html">Vendas</a>
+          <a href="dashboard.html">Dashboard</a>
         </nav>
         <div class="status">
           <span class="dot"></span>
-          <span>API: http://localhost:8080</span>
+          <span id="apiStatus">API</span>
+        </div>
+        <div class="user-meta">
+          <span class="user-badge" id="userBadge">Usuario</span>
+          <button class="btn outline" id="logoutBtn" type="button">Sair</button>
         </div>
       </div>
     </header>
@@ -103,7 +109,8 @@
             <label for="usuarioRole">Role</label>
             <select id="usuarioRole">
               <option value="ADMIN">ADMIN</option>
-              <option value="USER">USER</option>
+              <option value="GERENTE">GERENTE</option>
+              <option value="FUNCIONARIO">FUNCIONARIO</option>
             </select>
           </div>
           <div class="field">
@@ -151,7 +158,8 @@
               <label for="usuarioUpdateRole">Role</label>
               <select id="usuarioUpdateRole">
                 <option value="ADMIN">ADMIN</option>
-                <option value="USER">USER</option>
+                <option value="GERENTE">GERENTE</option>
+                <option value="FUNCIONARIO">FUNCIONARIO</option>
               </select>
             </div>
             <div class="field">
@@ -166,6 +174,7 @@
 
     <div class="toast" id="toast"></div>
 
+    <script src="auth.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

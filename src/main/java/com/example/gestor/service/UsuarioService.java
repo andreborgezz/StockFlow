@@ -22,6 +22,7 @@ public class UsuarioService {
     public Usuario salvar(Usuario usuario) {
         Empresa empresa = resolveEmpresa(usuario.getEmpresa());
         usuario.setEmpresa(empresa);
+        usuario.setRole(normalizarRole(usuario.getRole()));
         return usuarioRepository.save(usuario);
     }
 
@@ -39,9 +40,15 @@ public class UsuarioService {
 
         usuario.setNome(usuarioAtualizado.getNome());
         usuario.setEmail(usuarioAtualizado.getEmail());
-        usuario.setRole(usuarioAtualizado.getRole());
+        usuario.setRole(normalizarRole(usuarioAtualizado.getRole()));
         usuario.setEmpresa(resolveEmpresa(usuarioAtualizado.getEmpresa()));
 
+        return usuarioRepository.save(usuario);
+    }
+
+    public Usuario atualizarRole(Long id, String role) {
+        Usuario usuario = buscarPorId(id);
+        usuario.setRole(normalizarRole(role));
         return usuarioRepository.save(usuario);
     }
 
@@ -52,5 +59,18 @@ public class UsuarioService {
 
         return empresaRepository.findById(empresa.getIdEmpresa())
                 .orElseThrow(() -> new RuntimeException("Empresa não encontrada"));
+    }
+
+    private String normalizarRole(String role) {
+        if (role == null) {
+            throw new RuntimeException("Role obrigatoria");
+        }
+
+        String normalized = role.trim().toUpperCase();
+        if (!normalized.equals("ADMIN") && !normalized.equals("GERENTE") && !normalized.equals("FUNCIONARIO")) {
+            throw new RuntimeException("Role invalida");
+        }
+
+        return normalized;
     }
 }

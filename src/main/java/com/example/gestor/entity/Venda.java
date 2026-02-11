@@ -15,7 +15,7 @@ public class Venda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_venda")
-    private Long id_Venda;
+    private Long idVenda;
 
     @Column(name = "data")
     private LocalDateTime data;
@@ -23,12 +23,12 @@ public class Venda {
     @Column(name = "valor_total")
     private BigDecimal valorTotal;
 
-    public Long getId_Venda() {
-        return id_Venda;
+    public Long getIdVenda() {
+        return idVenda;
     }
 
-    public void setId_Venda(Long id_Venda) {
-        this.id_Venda = id_Venda;
+    public void setIdVenda(Long idVenda) {
+        this.idVenda = idVenda;
     }
 
     public LocalDateTime getData() {

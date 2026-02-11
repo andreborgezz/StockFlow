@@ -70,3 +70,23 @@ create table itemvenda
     constraint fk_itemvenda_venda
         foreign key (id_venda) references venda (id_venda)
 );
+
+-- Limpar todos os dados
+-- Use com cuidado: isso apaga tudo do schema GestaoComercial.
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE itemvenda;
+TRUNCATE TABLE venda;
+TRUNCATE TABLE usuario;
+TRUNCATE TABLE produto;
+TRUNCATE TABLE categoria;
+TRUNCATE TABLE empresa;
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- Seed de teste: empresa + usuario ADMIN
+INSERT INTO empresa (nome, documento, ativo)
+VALUES ('Empresa Teste', '00000000000191', 1);
+
+SET @empresa_id = LAST_INSERT_ID();
+
+INSERT INTO usuario (role, id_empresa, email_usuario, nome_usuario, senha_usuario)
+VALUES ('ADMIN', @empresa_id, 'andre@admin.com', 'Admin', '191213');

@@ -8,4 +8,7 @@ import java.util.List;
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     List<Produto> findByEmpresaIdEmpresa(Long idEmpresa);
+
+    List<Produto> findByEmpresaIdEmpresaAndQtdEstoqueLessThanEqual(Long idEmpresa,
+                                                                   int qtdEstoque);
 }

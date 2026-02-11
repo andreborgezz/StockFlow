@@ -28,6 +28,13 @@ public class ProdutoController {
         return produtoService.listarPorEmpresa(idEmpresa);
     }
 
+    // 🔹 Listar estoque baixo por empresa
+    @GetMapping("/empresa/{idEmpresa}/estoque-baixo")
+    public List<Produto> listarEstoqueBaixo(@PathVariable Long idEmpresa,
+                                            @RequestParam(defaultValue = "5") int limite) {
+        return produtoService.listarPorEmpresaComEstoqueBaixo(idEmpresa, limite);
+    }
+
     // 🔹 Buscar por id
     @GetMapping("/{id}")
     public Produto buscar(@PathVariable Long id) {
